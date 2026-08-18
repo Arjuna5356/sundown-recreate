@@ -1,0 +1,255 @@
+/* ==========================================================================
+   SUNDOWN STUDIO — RESPONSIVE STYLESHEET
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. LARGE DESKTOP & WIDESCREEN (>= 1440px)
+   -------------------------------------------------------------------------- */
+@media (min-width: 1440px) {
+    :root {
+        --section-padding-x: 5vw;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   2. DESKTOP / TABLET LANDSCAPE (<= 1200px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 1200px) {
+    .capabilities-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .process-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2.5rem;
+    }
+    
+    .philosophy-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* --------------------------------------------------------------------------
+   3. TABLET PORTRAIT & MOBILE (<= 992px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 992px) {
+    /* Navigation Toggle */
+    .nav-links-desktop {
+        display: none;
+    }
+    
+    .mobile-menu-btn {
+        display: inline-flex;
+    }
+    
+    /* Layout shifts */
+    .home-hero-center {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+        gap: 2rem;
+    }
+    
+    .hero-headline h1 {
+        text-align: left;
+    }
+    
+    .hero-statement {
+        max-width: 100%;
+    }
+    
+    .studio-preview-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+    
+    .studio-hero-statement {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .pillar-row {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+    
+    .contact-layout-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+    
+    .methodology-item {
+        grid-template-columns: 80px 1fr;
+    }
+    
+    .method-desc {
+        grid-column: 2 / -1;
+    }
+    
+    .gallery-item.col-7,
+    .gallery-item.col-5,
+    .gallery-item.col-4,
+    .gallery-item.col-8 {
+        grid-column: span 6;
+        aspect-ratio: 16 / 10;
+    }
+    
+    .case-meta-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .narrative-split {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   4. MOBILE STANDARD (<= 768px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+    :root {
+        --section-padding-x: 1.25rem;
+    }
+    
+    /* Hero Shape adaptation */
+    .hero-gooey-shape {
+        width: 80vw;
+        height: 70vw;
+        top: 45vh;
+        right: -15vw;
+    }
+    
+    .hero-gooey-shape .shape-blob-1,
+    .hero-gooey-shape .shape-blob-2 {
+        width: 60vw;
+        height: 60vw;
+    }
+    
+    /* Project Layouts */
+    .projects-grid-container {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+    
+    .capabilities-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .philosophy-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .process-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .gallery-item.col-7,
+    .gallery-item.col-5,
+    .gallery-item.col-4,
+    .gallery-item.col-8 {
+        grid-column: span 12;
+    }
+    
+    .case-gallery-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .case-next-project-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    /* Footer layout */
+    .footer-top {
+        flex-direction: column;
+        gap: 3rem;
+    }
+    
+    .footer-nav-grid {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   5. SMALL MOBILE (<= 480px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 480px) {
+    .project-list-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+        padding: 1.5rem 0;
+    }
+    
+    .project-list-row .row-meta {
+        gap: 1rem;
+    }
+    
+    .methodology-item {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .method-num {
+        font-size: 1.2rem;
+    }
+    
+    .work-controls-bar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .view-toggle-group {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .case-meta-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .contact-form-container {
+        padding: 1.5rem 1rem;
+    }
+    
+    .pill-checkbox-group {
+        gap: 6px;
+    }
+    
+    .pill-option span {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   6. EXTRA SMALL MOBILE (<= 360px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 360px) {
+    :root {
+        --section-padding-x: 1rem;
+    }
+    
+    .brand-logo img {
+        height: 20px;
+    }
+    
+    .mobile-menu-btn {
+        padding: 8px 14px;
+        font-size: 0.85rem;
+    }
+    
+    .btn-pill {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+}

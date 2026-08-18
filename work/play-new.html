@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play New Kidvision — Sundown Studio</title>
+    <meta name="description" content="Case study for Play New Kidvision: Dynamic kinetic typography and digital motion system created for next-generation creative expression.">
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../assets/icons/icon.png" type="image/png">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/pages.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+    <!-- Skip to main content -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+                <!-- SVG Refraction Filter Definitions -->
+    <svg class="glass-surface__filter" aria-hidden="true" style="position: absolute; width: 0; height: 0; pointer-events: none; overflow: hidden;" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <filter id="glass-filter-refract" color-interpolation-filters="sRGB" x="-10%" y="-10%" width="120%" height="120%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.02 0.02" numOctaves="2" result="noise" />
+                <feDisplacementMap in="SourceGraphic" in2="noise" result="dispRed" scale="-4" xChannelSelector="R" yChannelSelector="G" />
+                <feColorMatrix in="dispRed" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="red" />
+                <feDisplacementMap in="SourceGraphic" in2="noise" result="dispGreen" scale="-6" xChannelSelector="R" yChannelSelector="G" />
+                <feColorMatrix in="dispGreen" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="green" />
+                <feDisplacementMap in="SourceGraphic" in2="noise" result="dispBlue" scale="-8" xChannelSelector="R" yChannelSelector="G" />
+                <feColorMatrix in="dispBlue" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="blue" />
+                <feBlend in="red" in2="green" mode="screen" result="rg" />
+                <feBlend in="rg" in2="blue" mode="screen" result="output" />
+                <feGaussianBlur in="output" stdDeviation="0.5" result="finalBlur" />
+                <feBlend in="SourceGraphic" in2="finalBlur" mode="normal" />
+            </filter>
+        </defs>
+    </svg>
+
+    <!-- Liquid Glass Effect Navbar -->
+    <header id="header" class="liquid-glass-header">
+        <div class="liquid-navbar-chassis">
+            <a href="../index.html" class="liquid-brand-logo" aria-label="Sundown Studio Home">
+                <img src="../assets/icons/logo-white.svg" alt="Sundown Studio">
+            </a>
+
+            <nav class="liquid-nav-links" aria-label="Primary Navigation">
+                <a href="../index.html" class="liquid-nav-item" data-nav-page="home">Home</a>
+                <a href="../work.html" class="liquid-nav-item active" data-nav-page="work" aria-current="page">Work</a>
+                <a href="../studio.html" class="liquid-nav-item" data-nav-page="studio">Studio</a>
+                <a href="../services.html" class="liquid-nav-item" data-nav-page="services">Services</a>
+                <a href="../contact.html" class="liquid-nav-item" data-nav-page="contact">Contact</a>
+            </nav>
+
+            <a href="../contact.html" class="liquid-cta-btn">
+                <span>Start a Project</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+
+            <button class="liquid-mobile-toggle" aria-expanded="false" aria-label="Toggle Navigation Menu">
+                <svg class="icon-hamburger" width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                <svg class="icon-close" width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+
+        <div class="liquid-mobile-dropdown">
+            <nav class="liquid-mobile-nav">
+                <a href="../index.html" class="liquid-mobile-link" data-nav-page="home">Home</a>
+                <a href="../work.html" class="liquid-mobile-link active" data-nav-page="work">Work</a>
+                <a href="../studio.html" class="liquid-mobile-link" data-nav-page="studio">Studio</a>
+                <a href="../services.html" class="liquid-mobile-link" data-nav-page="services">Services</a>
+                <a href="../contact.html" class="liquid-mobile-link" data-nav-page="contact">Contact</a>
+            </nav>
+            <div style="margin-top: 1rem; width: 100%;">
+                <a href="../contact.html" class="liquid-cta-btn" style="width: 100%; justify-content: center;">Start a Project</a>
+            </div>
+        </div>
+    </header>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <div id="main-wrapper">
+            
+            <article class="case-study-hero page-container">
+                <span class="section-badge">Case Study &bull; Content &amp; Direction</span>
+                <h1 class="case-study-title">PLAY NEW KIDVISION</h1>
+
+                <!-- Metadata Grid -->
+                <div class="case-meta-grid">
+                    <div class="case-meta-item">
+                        <h4>Discipline</h4>
+                        <p>Digital &amp; Motion Direction</p>
+                    </div>
+                    <div class="case-meta-item">
+                        <h4>Category</h4>
+                        <p>Content</p>
+                    </div>
+                    <div class="case-meta-item">
+                        <h4>Year</h4>
+                        <p>2023</p>
+                    </div>
+                    <div class="case-meta-item">
+                        <h4>Format</h4>
+                        <p>Kinetic Systems &amp; 3D</p>
+                    </div>
+                </div>
+
+                <!-- Primary Visual -->
+                <div class="case-hero-image-wrapper parallax-image-wrapper">
+                    <img class="parallax-img" src="../assets/images/project-cyber-coder.jpg" alt="Play New Kidvision digital motion system" loading="eager">
+                </div>
+
+                <!-- Project Narrative -->
+                <div class="case-narrative-section">
+                    <div class="narrative-split">
+                        <h3>Translating boundless youth creativity into a fluid kinetic typography and visual identity.</h3>
+                        <p>Play New Kidvision required a bold digital design system capable of adapting across large-scale physical LED displays, social channels, and interactive digital interfaces. Sundown created a lively generative motion toolkit utilizing playful typography, vivid chromatic accents, and tactile 3D forms.</p>
+                    </div>
+
+                    <div class="narrative-split">
+                        <h3>Dynamic Motion System</h3>
+                        <p>Every motion element was crafted with elastic curves and fluid physics, delivering an energetic visual rhythm that resonates with young creators worldwide.</p>
+                    </div>
+                </div>
+
+                <!-- Next Project Banner -->
+                <a href="makers-studio.html" class="case-next-project-banner">
+                    <div>
+                        <span>Next Case Study</span>
+                        <h2>Makers Studio HOI &rarr;</h2>
+                    </div>
+                    <span class="btn-pill" style="color: #fff; border-color: rgba(255,255,255,0.3);">View Project</span>
+                </a>
+
+            </article>
+
+        </div>
+    </main>
+
+    <!-- Global Footer -->
+    <footer id="global-footer">
+        <div class="footer-ambient-glow" aria-hidden="true"></div>
+        <div class="footer-top">
+            <div class="footer-brand">
+                <h2>Sundown Studio</h2>
+                <p>Multi-disciplinary creative studio focused on spatial environments, brand experiences, and digital content.</p>
+            </div>
+
+            <div class="footer-nav-grid">
+                <div class="footer-nav-col">
+                    <h3>Navigation</h3>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../work.html">Work</a></li>
+                        <li><a href="../studio.html">Studio</a></li>
+                        <li><a href="../services.html">Services</a></li>
+                        <li><a href="../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-nav-col">
+                    <h3>Capabilities</h3>
+                    <ul>
+                        <li><a href="../services.html#environments">Environments</a></li>
+                        <li><a href="../services.html#experiences">Experiences</a></li>
+                        <li><a href="../services.html#content">Content & Direction</a></li>
+                        <li><a href="../services.html#process">Process</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-big-title">
+            <h1>Sundown</h1>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Sundown Studio. All rights reserved.</p>
+            <p>Designed &amp; Engineered with Precision.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts: Pure Progressive Enhancement -->
+    <script src="../js/main.js"></script>
+    <script src="../js/navigation.js"></script>
+    <script src="../js/animations.js"></script>
+</body>
+</html>

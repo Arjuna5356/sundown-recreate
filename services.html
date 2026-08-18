@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services &amp; Image Stream — Sundown Studio</title>
+    <meta name="description" content="Explore Sundown Studio's core capabilities through an infinite 3D perspective image corridor of spatial design, immersive experiences, and motion craft.">
+
+    <link rel="shortcut icon" href="assets/icons/icon.png" type="image/png">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+        /* ============================================================
+           SERVICES PAGE — 3D IMAGE STREAM HERO & CAPABILITIES
+        ============================================================ */
+
+        body {
+            background-color: #0B0500;
+            color: #F7F5F0;
+        }
+
+        /* ── 3D Image Stream Container ── */
+        .image-stream-hero-wrapper {
+            position: relative;
+            width: 100%;
+            height: clamp(520px, 80vh, 760px);
+            overflow: hidden;
+            background-color: #0B0500;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            container-type: inline-size;
+        }
+
+        .stream-chassis {
+            pointer-events: none;
+            position: absolute;
+            inset: 0;
+        }
+
+        .stream-stage-3d {
+            position: absolute;
+            inset: 0;
+            transform-style: preserve-3d;
+        }
+
+        .stream-card {
+            position: absolute;
+            overflow: hidden;
+            backface-visibility: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stream-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        /* Foreground Overlay Content */
+        .stream-overlay-content {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            height: 100%;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: clamp(90px, 12vw, 130px) var(--section-padding-x) clamp(2.5rem, 5vw, 4rem);
+            text-align: center;
+            pointer-events: auto;
+        }
+
+        .stream-headline-wrap .section-badge {
+            color: #FE320A;
+            margin-bottom: 1.25rem;
+            display: inline-flex;
+        }
+
+        .stream-headline-wrap h1 {
+            font-size: clamp(3rem, 8vw, 8.5rem);
+            font-weight: 500;
+            letter-spacing: -0.04em;
+            line-height: 0.9;
+            color: #F7F5F0;
+            text-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .stream-headline-wrap h1 em {
+            font-style: normal;
+            background: linear-gradient(90deg, #FE320A 0%, #FFB800 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .stream-bottom-info {
+            max-width: 580px;
+            background: rgba(11, 5, 0, 0.75);
+            padding: 1.25rem 2rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+        }
+
+        .stream-bottom-info p {
+            font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+            color: rgba(247, 245, 240, 0.8);
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        /* ── Capabilities Breakdown Section ── */
+        .capabilities-showcase-section {
+            padding: var(--section-padding-y) 0;
+            background-color: #0F0904;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .cap-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3.5rem;
+        }
+
+        .cap-card-dark {
+            background-color: #17110B;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--border-radius-md);
+            padding: clamp(2rem, 3.5vw, 3rem);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 400px;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cap-card-dark:hover {
+            transform: translateY(-8px);
+            border-color: var(--color-accent);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .cap-card-dark .num {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--color-accent);
+        }
+
+        .cap-card-dark h3 {
+            font-size: clamp(1.8rem, 2.4vw, 2.5rem);
+            font-weight: 500;
+            line-height: 1.15;
+            color: #F7F5F0;
+            margin: 1.5rem 0 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .cap-card-dark p {
+            color: rgba(247, 245, 240, 0.6);
+            font-size: 1.05rem;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        .cap-pill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 1.75rem;
+        }
+
+        .cap-pill-tags span {
+            font-size: 0.82rem;
+            padding: 5px 12px;
+            border-radius: var(--border-radius-full);
+            background-color: rgba(255, 255, 255, 0.06);
+            color: rgba(247, 245, 240, 0.7);
+        }
+
+        /* ── 4-Step Process Section ── */
+        .process-roadmap-section {
+            padding: var(--section-padding-y) 0;
+            background-color: #0B0500;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .process-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 3.5rem;
+        }
+
+        .proc-card {
+            border-top: 2px solid var(--color-accent);
+            padding-top: 1.5rem;
+            transition: transform 0.25s ease;
+        }
+
+        .proc-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .proc-card .p-num {
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+        }
+
+        .proc-card h3 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #F7F5F0;
+            margin-bottom: 0.85rem;
+            letter-spacing: -0.01em;
+        }
+
+        .proc-card p {
+            font-size: 0.95rem;
+            font-weight: 300;
+            color: rgba(247, 245, 240, 0.55);
+            line-height: 1.6;
+        }
+
+        /* ── FAQ Section ── */
+        .services-faq-dark {
+            padding: var(--section-padding-y) 0;
+            background-color: #0B0500;
+        }
+
+        .faq-dark-list {
+            max-width: 900px;
+            margin: 3rem auto 0;
+            display: flex;
+            flex-direction: column;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .faq-dark-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .faq-dark-btn {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.75rem 0;
+            text-align: left;
+            font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+            font-weight: 500;
+            color: #F7F5F0;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .faq-dark-btn:hover {
+            color: var(--color-accent);
+        }
+
+        .faq-dark-icon {
+            font-size: 1.5rem;
+            font-weight: 300;
+            transition: transform 0.3s ease;
+            color: var(--color-accent);
+        }
+
+        .faq-dark-item.open .faq-dark-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-dark-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+        }
+
+        .faq-dark-item.open .faq-dark-answer {
+            max-height: 300px;
+            padding-bottom: 1.75rem;
+        }
+
+        .faq-dark-answer p {
+            font-size: 1.05rem;
+            font-weight: 300;
+            color: rgba(247, 245, 240, 0.6);
+            line-height: 1.65;
+        }
+
+        @media (max-width: 992px) {
+            .cap-grid-3 { grid-template-columns: 1fr; }
+            .process-cards-grid { grid-template-columns: repeat(2, 1fr); gap: 2.5rem; }
+        }
+
+        @media (max-width: 600px) {
+            .process-cards-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+    <!-- SVG Refraction Filter Definitions -->
+    <svg class="glass-surface__filter" aria-hidden="true" style="position: absolute; width: 0; height: 0; pointer-events: none; overflow: hidden;" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <filter id="glass-filter-refract" color-interpolation-filters="sRGB" x="-10%" y="-10%" width="120%" height="120%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.02 0.02" numOctaves="2" result="noise" />
+                <feDisplacementMap in="SourceGraphic" in2="noise" result="dispRed" scale="-4" xChannelSelector="R" yChannelSelector="G" />
+                <feColorMatrix in="dispRed" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="red" />
+                <feDisplacementMap in="SourceGraphic" in2="noise" result="dispGreen" scale="-6" xChannelSelector="R" yChannelSelector="G" />
+                <feColorMatrix in="dispGreen" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="green" />
+                <feDisplacementMap in="SourceGraphic" in2="noise" result="dispBlue" scale="-8" xChannelSelector="R" yChannelSelector="G" />
+                <feColorMatrix in="dispBlue" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="blue" />
+                <feBlend in="red" in2="green" mode="screen" result="rg" />
+                <feBlend in="rg" in2="blue" mode="screen" result="output" />
+                <feGaussianBlur in="output" stdDeviation="0.5" result="finalBlur" />
+                <feBlend in="SourceGraphic" in2="finalBlur" mode="normal" />
+            </filter>
+        </defs>
+    </svg>
+
+    <!-- Liquid Glass Effect Navbar -->
+    <header id="header" class="liquid-glass-header">
+        <div class="liquid-navbar-chassis">
+            <a href="index.html" class="liquid-brand-logo" aria-label="Sundown Studio Home">
+                <img src="assets/icons/logo-white.svg" alt="Sundown Studio">
+            </a>
+
+            <nav class="liquid-nav-links" aria-label="Primary Navigation">
+                <a href="index.html" class="liquid-nav-item" data-nav-page="home">Home</a>
+                <a href="work.html" class="liquid-nav-item" data-nav-page="work">Work</a>
+                <a href="studio.html" class="liquid-nav-item" data-nav-page="studio">Studio</a>
+                <a href="services.html" class="liquid-nav-item active" data-nav-page="services" aria-current="page">Services</a>
+                <a href="contact.html" class="liquid-nav-item" data-nav-page="contact">Contact</a>
+            </nav>
+
+            <a href="contact.html" class="liquid-cta-btn">
+                <span>Start a Project</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+
+            <button class="liquid-mobile-toggle" aria-expanded="false" aria-label="Toggle Navigation Menu">
+                <svg class="icon-hamburger" width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                <svg class="icon-close" width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+
+        <div class="liquid-mobile-dropdown">
+            <nav class="liquid-mobile-nav">
+                <a href="index.html" class="liquid-mobile-link" data-nav-page="home">Home</a>
+                <a href="work.html" class="liquid-mobile-link" data-nav-page="work">Work</a>
+                <a href="studio.html" class="liquid-mobile-link" data-nav-page="studio">Studio</a>
+                <a href="services.html" class="liquid-mobile-link active" data-nav-page="services">Services</a>
+                <a href="contact.html" class="liquid-mobile-link" data-nav-page="contact">Contact</a>
+            </nav>
+            <div style="margin-top: 1rem; width: 100%;">
+                <a href="contact.html" class="liquid-cta-btn" style="width: 100%; justify-content: center;">Start a Project</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content">
+
+        <!-- ══════════════════════════════════════
+             3D PERSPECTIVE IMAGE STREAM CORRIDOR HERO
+        ══════════════════════════════════════ -->
+        <section id="image-stream-hero" class="image-stream-hero-wrapper" aria-label="3D Infinite Image Stream Hero">
+            <!-- Dynamic 3D CSS Keyframes & Corridor generated by JavaScript -->
+            <div id="stream-chassis" class="stream-chassis" aria-hidden="true">
+                <div id="stream-stage" class="stream-stage-3d"></div>
+            </div>
+
+            <!-- Foreground Content -->
+            <div class="stream-overlay-content">
+                <div class="stream-headline-wrap">
+                    <span class="section-badge">Capabilities</span>
+                    <h1>YOUR WORK,<br><em>FRONT &amp; CENTRE.</em></h1>
+                </div>
+
+                <div class="stream-bottom-info">
+                    <p>A multi-rail 3D corridor streaming our spatial and experiential portfolio. Engineered with continuous mathematical perspective.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════════════════════════════════
+             3 CORE CAPABILITY PILLARS
+        ══════════════════════════════════════ -->
+        <section class="capabilities-showcase-section page-container" aria-label="Core Capabilities">
+            <div class="section-header-row" style="border-color: rgba(255,255,255,0.1);">
+                <div>
+                    <span class="section-badge">Disciplines</span>
+                    <h2 style="color: #F7F5F0;">ENGINEERED FOR ENDURING IMPACT</h2>
+                </div>
+            </div>
+
+            <div class="cap-grid-3">
+                <!-- Pillar 1 -->
+                <div class="cap-card-dark">
+                    <div>
+                        <span class="num">01</span>
+                        <h3>Environments</h3>
+                        <p>We conceive, engineer, and fabricate physical spaces that combine architectural precision with tactile materiality. From flagship retail to exhibition pavilions.</p>
+                    </div>
+                    <div class="cap-pill-tags">
+                        <span>Spatial Design</span>
+                        <span>Retail Architecture</span>
+                        <span>Pop-Up Pavilions</span>
+                        <span>Fabrication</span>
+                    </div>
+                </div>
+
+                <!-- Pillar 2 -->
+                <div class="cap-card-dark">
+                    <div>
+                        <span class="num">02</span>
+                        <h3>Experiences</h3>
+                        <p>Immersive brand activations and multi-sensory physical installations that draw crowds, provoke curiosity, and generate unforgettable moments.</p>
+                    </div>
+                    <div class="cap-pill-tags">
+                        <span>Brand Activations</span>
+                        <span>Interactive Tech</span>
+                        <span>Kinetic Lighting</span>
+                        <span>Live Production</span>
+                    </div>
+                </div>
+
+                <!-- Pillar 3 -->
+                <div class="cap-card-dark">
+                    <div>
+                        <span class="num">03</span>
+                        <h3>Content &amp; Direction</h3>
+                        <p>High-fidelity 3D motion graphics, brand identity systems, architectural visualization, and digital storytelling tailored for modern broadcast &amp; social spaces.</p>
+                    </div>
+                    <div class="cap-pill-tags">
+                        <span>3D CGI Motion</span>
+                        <span>Art Direction</span>
+                        <span>Video Direction</span>
+                        <span>Brand Worlds</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════════════════════════════════
+             4-STEP PROCESS ROADMAP
+        ══════════════════════════════════════ -->
+        <section class="process-roadmap-section page-container" aria-label="Our Process">
+            <div class="section-header-row" style="border-color: rgba(255,255,255,0.1);">
+                <div>
+                    <span class="section-badge">Methodology</span>
+                    <h2 style="color: #F7F5F0;">FROM CONCEPT TO COMMISSIONING</h2>
+                </div>
+            </div>
+
+            <div class="process-cards-grid">
+                <div class="proc-card">
+                    <div class="p-num">01</div>
+                    <h3>Discovery &amp; Strategy</h3>
+                    <p>We analyze brand context, architectural site parameters, and user journeys to establish a clear creative brief and technical feasibility.</p>
+                </div>
+
+                <div class="proc-card">
+                    <div class="p-num">02</div>
+                    <h3>Spatial Prototyping</h3>
+                    <p>Full 3D visualization, material sampling, structural engineering, and lighting tests validate every detail before production.</p>
+                </div>
+
+                <div class="proc-card">
+                    <div class="p-num">03</div>
+                    <h3>Fabrication &amp; Craft</h3>
+                    <p>Our workshop team handcrafts bespoke fixtures, structural framing, and integrated electronics with master artisans.</p>
+                </div>
+
+                <div class="proc-card">
+                    <div class="p-num">04</div>
+                    <h3>On-Site Activation</h3>
+                    <p>Turnkey installation, technical commissioning, and live event management ensure flawless real-world deployment.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════════════════════════════════
+             FAQ SECTION
+        ══════════════════════════════════════ -->
+        <section class="services-faq-dark page-container" aria-label="Frequently Asked Questions">
+            <div class="section-header-row" style="border-color: rgba(255,255,255,0.1);">
+                <div>
+                    <span class="section-badge">Common Questions</span>
+                    <h2 style="color: #F7F5F0;">FREQUENTLY ASKED</h2>
+                </div>
+            </div>
+
+            <div class="faq-dark-list">
+                <div class="faq-dark-item">
+                    <button class="faq-dark-btn" aria-expanded="false">
+                        <span>What types of spatial projects does Sundown build?</span>
+                        <span class="faq-dark-icon" aria-hidden="true">+</span>
+                    </button>
+                    <div class="faq-dark-answer">
+                        <p>We handle permanent flagship retail interiors, temporary pop-up pavilions, museum-grade exhibition spaces, immersive brand launch activations, and bespoke architectural fixtures.</p>
+                    </div>
+                </div>
+
+                <div class="faq-dark-item">
+                    <button class="faq-dark-btn" aria-expanded="false">
+                        <span>Do you work internationally?</span>
+                        <span class="faq-dark-icon" aria-hidden="true">+</span>
+                    </button>
+                    <div class="faq-dark-answer">
+                        <p>Yes. While headquartered in New York, we design and produce environments globally, with partner fabricators across Europe, Asia, Latin America, and the Middle East.</p>
+                    </div>
+                </div>
+
+                <div class="faq-dark-item">
+                    <button class="faq-dark-btn" aria-expanded="false">
+                        <span>How long does a typical build take?</span>
+                        <span class="faq-dark-icon" aria-hidden="true">+</span>
+                    </button>
+                    <div class="faq-dark-answer">
+                        <p>Pop-ups and temporary activations typically span 4 to 12 weeks from initial concept to launch. Permanent architectural builds range from 3 to 9 months depending on site scale.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Global Footer -->
+    <footer id="global-footer">
+        <div class="footer-ambient-glow" aria-hidden="true"></div>
+        <div class="footer-top">
+            <div class="footer-brand">
+                <h2>Ready to collaborate with Sundown?</h2>
+                <p>We partner with visionary brands to design and build world-class physical and digital spaces.</p>
+                <div style="margin-top: 2rem;">
+                    <a href="contact.html" class="btn-accent">
+                        <span>Start a Conversation</span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-nav-grid">
+                <div class="footer-nav-col">
+                    <h3>Navigation</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="work.html">Work</a></li>
+                        <li><a href="studio.html">Studio</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-nav-col">
+                    <h3>Capabilities</h3>
+                    <ul>
+                        <li><a href="services.html">Environments</a></li>
+                        <li><a href="services.html">Experiences</a></li>
+                        <li><a href="services.html">Content & Direction</a></li>
+                        <li><a href="services.html">Process</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-big-title">
+            <h1>Sundown</h1>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Sundown Studio. All rights reserved.</p>
+            <p>Designed &amp; Engineered with Precision.</p>
+        </div>
+    </footer>
+
+    <!-- Standard scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/navigation.js"></script>
+
+    <!-- ══════════════════════════════════════
+         3D IMAGE STREAM HERO ENGINE
+    ══════════════════════════════════════ -->
+    <script>
+    (function () {
+        'use strict';
+
+        const PATH = {
+            perspective: 30,
+            cardWidth: 18,
+            cardHeight: 25,
+            cardRadius: 0.4,
+            birthHeight: 2.6,
+            exitHeight: 46,
+            railBirth: -11,
+            railExit: 44,
+            fan: 3.3,
+            turnBirth: 6,
+            turnExit: 28,
+            stops: 24,
+        };
+
+        const CARDS = 9;
+        const SPEED = 18;
+        const AXIS = 55;
+
+        const IMAGES = [
+            { src: "assets/images/hero-orange-glasses.jpg" },
+            { src: "assets/images/project-perfect-heat.jpg" },
+            { src: "assets/images/project-solar-eclipse.jpg" },
+            { src: "assets/images/project-orange-hypercar.jpg" },
+            { src: "assets/images/project-cyber-coder.jpg" },
+            { src: "assets/images/hero-orange-glasses.jpg" },
+            { src: "assets/images/project-perfect-heat.jpg" },
+            { src: "assets/images/project-solar-eclipse.jpg" },
+            { src: "assets/images/project-orange-hypercar.jpg" }
+        ];
+
+        function generateKeyframes(dir, name, p) {
+            const steps = [];
+            for (let s = 0; s <= p.stops; s++) {
+                const u = s / p.stops;
+                const scale = (p.birthHeight / p.cardHeight) * Math.pow(p.exitHeight / p.birthHeight, u);
+                const z = p.perspective * (1 - 1 / scale);
+                const rail = p.railExit - (p.railExit - p.railBirth) * Math.pow(1 - u, p.fan);
+                const turn = p.turnBirth + (p.turnExit - p.turnBirth) * u;
+                steps.push(`${(u * 100).toFixed(2)}%{transform:translate3d(${(dir * rail).toFixed(2)}cqw,0,${z.toFixed(2)}cqw) rotateY(${(-dir * turn).toFixed(2)}deg)}`);
+            }
+            return `@keyframes ${name}{${steps.join("")}}`;
+        }
+
+        const styleTag = document.createElement('style');
+        styleTag.textContent = `
+            ${generateKeyframes(1, 'ish-r-main', PATH)}
+            ${generateKeyframes(-1, 'ish-l-main', PATH)}
+            @media(prefers-reduced-motion:reduce){
+                .stream-card { animation-play-state: paused !important; }
+            }
+        `;
+        document.head.appendChild(styleTag);
+
+        const chassis = document.getElementById('stream-chassis');
+        const stage = document.getElementById('stream-stage');
+
+        if (chassis && stage) {
+            chassis.style.perspective = `${PATH.perspective}cqw`;
+            chassis.style.perspectiveOrigin = `50% ${AXIS}%`;
+
+            const rails = [
+                { name: 'ish-r-main', dir: 1 },
+                { name: 'ish-l-main', dir: -1 }
+            ];
+
+            rails.forEach(rail => {
+                for (let i = 0; i < CARDS; i++) {
+                    const card = document.createElement('div');
+                    card.className = 'stream-card';
+                    card.style.left = '50%';
+                    card.style.top = `${AXIS}%`;
+                    card.style.width = `${PATH.cardWidth}cqw`;
+                    card.style.height = `${PATH.cardHeight}cqw`;
+                    card.style.marginLeft = `${-PATH.cardWidth / 2}cqw`;
+                    card.style.marginTop = `${-PATH.cardHeight / 2}cqw`;
+                    card.style.borderRadius = `${PATH.cardRadius}cqw`;
+                    card.style.animation = `${rail.name} ${SPEED}s linear infinite`;
+                    card.style.animationDelay = `${-(i * SPEED) / CARDS}s`;
+
+                    const img = document.createElement('img');
+                    const src = IMAGES[i % IMAGES.length].src;
+                    img.src = src;
+                    img.alt = `Corridor Card ${i + 1}`;
+                    img.loading = 'lazy';
+                    img.draggable = false;
+
+                    card.appendChild(img);
+                    stage.appendChild(card);
+                }
+            });
+        }
+
+        // FAQ Toggle
+        document.querySelectorAll('.faq-dark-item').forEach(item => {
+            const btn = item.querySelector('.faq-dark-btn');
+            btn.addEventListener('click', () => {
+                const isOpen = item.classList.contains('open');
+                document.querySelectorAll('.faq-dark-item').forEach(other => other.classList.remove('open'));
+                if (!isOpen) {
+                    item.classList.add('open');
+                    btn.setAttribute('aria-expanded', 'true');
+                } else {
+                    btn.setAttribute('aria-expanded', 'false');
+                }
+            });
+        });
+
+    })();
+    </script>
+</body>
+</html>

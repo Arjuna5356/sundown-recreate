@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio — Sundown Studio</title>
+    <meta name="description" content="Sundown Studio's creative universe — a curated flow of spatial design, motion, and experiential craft moving along the arc of possibility.">
+
+    <link rel="shortcut icon" href="assets/icons/icon.png" type="image/png">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+        /* ============================================================
+           STUDIO PAGE — MARQUEE ALONG SVG PATH
+        ============================================================ */
+
+        body {
+            background-color: #0B0500;
+            color: #F7F5F0;
+        }
+
+        /* ── Hero ── */
+        .studio-hero-dark {
+            min-height: 100vh;
+            background-color: #0B0500;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(90px, 12vw, 140px) var(--section-padding-x) 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle radial glow */
+        .studio-hero-dark::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 90% 55% at 50% 55%,
+                    rgba(254,50,10,0.08) 0%, transparent 65%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .studio-top-text {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            margin-bottom: clamp(2rem, 4vw, 4rem);
+        }
+
+        .studio-top-text .section-badge {
+            color: #FE320A;
+            margin-bottom: 1.25rem;
+        }
+
+        .studio-top-text h1 {
+            font-size: clamp(3.2rem, 10vw, 10.5rem);
+            font-weight: 500;
+            letter-spacing: -0.045em;
+            line-height: 0.88;
+            color: #F7F5F0;
+            max-width: 1100px;
+        }
+
+        .studio-top-text h1 em {
+            font-style: normal;
+            background: linear-gradient(90deg, #FE320A 0%, #FFB800 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* ── Marquee Path Wrapper ── */
+        .marquee-path-section {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            padding: 0;
+        }
+
+        /* Outer responsive wrapper — takes full width */
+        #marquee-wrapper {
+            position: relative;
+            width: 100%;
+            height: clamp(260px, 40vw, 440px);
+            overflow: visible;
+            cursor: grab;
+        }
+
+        #marquee-wrapper:active {
+            cursor: grabbing;
+        }
+
+        /* Inner fixed-dimension container (scaled to fit) */
+        #marquee-inner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 996px;
+            height: 330px;
+            transform-origin: top left;
+            contain: layout style;
+        }
+
+        /* The SVG path (hidden, just for reference layout) */
+        #marquee-inner svg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            opacity: 0; /* path hidden — set to 1 to debug */
+        }
+
+        /* Each item that follows the path */
+        .marquee-item {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 72px;
+            height: 72px;
+            offset-rotate: 0deg;
+            offset-anchor: 50% 50%;
+            will-change: offset-distance;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            transition: transform 0.25s cubic-bezier(0.16,1,0.3,1),
+                        box-shadow 0.25s ease;
+        }
+
+        .marquee-item:hover {
+            transform: scale(1.5);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.7);
+            z-index: 100 !important;
+        }
+
+        .marquee-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            pointer-events: none;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        /* ── Studio Info Strip ── */
+        .studio-info-strip {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            padding: clamp(4rem, 8vw, 7rem) var(--section-padding-x) clamp(5rem, 10vw, 9rem);
+            background: linear-gradient(to bottom, #0B0500 0%, #111009 100%);
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .studio-info-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: clamp(3rem, 6vw, 8rem);
+            align-items: flex-start;
+        }
+
+        .studio-info-left h2 {
+            font-size: clamp(2rem, 4vw, 4.2rem);
+            font-weight: 500;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            color: #F7F5F0;
+            margin-bottom: 1.75rem;
+        }
+
+        .studio-info-left p {
+            font-size: clamp(1rem, 1.3vw, 1.2rem);
+            color: rgba(247,245,240,0.5);
+            font-weight: 300;
+            line-height: 1.7;
+            max-width: 540px;
+            margin-bottom: 2.5rem;
+        }
+
+        .studio-info-right {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            padding-top: 0.5rem;
+        }
+
+        .studio-stat {
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 1.5rem;
+        }
+
+        .studio-stat .num {
+            font-size: clamp(2.5rem, 4vw, 4rem);
+            font-weight: 500;
+            letter-spacing: -0.04em;
+            color: #F7F5F0;
+            line-height: 1;
+            margin-bottom: 0.4rem;
+        }
+
+        .studio-stat .num span {
+            color: #FE320A;
+        }
+
+        .studio-stat .label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: rgba(247,245,240,0.4);
+            font-weight: 400;
+        }
+
+        /* ── Discipline Tags ── */
+        .studio-disciplines {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .discipline-tag {
+            padding: 8px 18px;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            color: rgba(247,245,240,0.65);
+            font-weight: 400;
+            transition: border-color 0.2s, color 0.2s, background-color 0.2s;
+        }
+
+        .discipline-tag:hover {
+            border-color: rgba(254,50,10,0.5);
+            color: #F7F5F0;
+            background-color: rgba(254,50,10,0.08);
+        }
+
+        /* ── Footer override for dark bg ── */
+        #global-footer {
+            background-color: #070300;
+        }
+
+        /* Drag hint */
+        .drag-hint {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: rgba(247,245,240,0.25);
+            padding: 1.5rem 0 0.5rem;
+        }
+
+        .drag-hint svg {
+            display: inline;
+            vertical-align: middle;
+            margin-right: 6px;
+            opacity: 0.5;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 900px) {
+            .studio-info-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .studio-info-right {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 1.5rem;
+            }
+
+            .studio-stat {
+                flex: 1 1 140px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .marquee-item {
+                width: 52px;
+                height: 52px;
+                border-radius: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+    <!-- SVG Refraction Filter Definitions -->
+    <svg class="glass-surface__filter" aria-hidden="true" style="position: absolute; width: 0; height: 0; pointer-events: none; overflow: hidden;" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <filter id="glass-filter-refract" color-interpolation-filters="sRGB" x="-10%" y="-10%" width="120%" height="120%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.02 0.02" numOctaves="2" result="noise" />
+                <feDisplacementMap in="SourceGraphic" in2="noise" result="dispRed" scale="-4" xChannelSelector="R" yChannelSelector="G" />
+                <feColorMatrix in="dispRed" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="red" />
+                <feDisplacementMap in="SourceGraphic" in2="noise" result="dispGreen" scale="-6" xChannelSelector="R" yChannelSelector="G" />
+                <feColorMatrix in="dispGreen" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="green" />
+                <feDisplacementMap in="SourceGraphic" in2="noise" result="dispBlue" scale="-8" xChannelSelector="R" yChannelSelector="G" />
+                <feColorMatrix in="dispBlue" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="blue" />
+                <feBlend in="red" in2="green" mode="screen" result="rg" />
+                <feBlend in="rg" in2="blue" mode="screen" result="output" />
+                <feGaussianBlur in="output" stdDeviation="0.5" result="finalBlur" />
+                <feBlend in="SourceGraphic" in2="finalBlur" mode="normal" />
+            </filter>
+        </defs>
+    </svg>
+
+    <!-- Liquid Glass Effect Navbar -->
+    <header id="header" class="liquid-glass-header">
+        <div class="liquid-navbar-chassis">
+            <a href="index.html" class="liquid-brand-logo" aria-label="Sundown Studio Home">
+                <img src="assets/icons/logo-white.svg" alt="Sundown Studio">
+            </a>
+
+            <nav class="liquid-nav-links" aria-label="Primary Navigation">
+                <a href="index.html" class="liquid-nav-item" data-nav-page="home">Home</a>
+                <a href="work.html" class="liquid-nav-item" data-nav-page="work">Work</a>
+                <a href="studio.html" class="liquid-nav-item active" data-nav-page="studio" aria-current="page">Studio</a>
+                <a href="services.html" class="liquid-nav-item" data-nav-page="services">Services</a>
+                <a href="contact.html" class="liquid-nav-item" data-nav-page="contact">Contact</a>
+            </nav>
+
+            <a href="contact.html" class="liquid-cta-btn">
+                <span>Start a Project</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+
+            <button class="liquid-mobile-toggle" aria-expanded="false" aria-label="Toggle Navigation Menu">
+                <svg class="icon-hamburger" width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                <svg class="icon-close" width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+
+        <div class="liquid-mobile-dropdown">
+            <nav class="liquid-mobile-nav">
+                <a href="index.html" class="liquid-mobile-link" data-nav-page="home">Home</a>
+                <a href="work.html" class="liquid-mobile-link" data-nav-page="work">Work</a>
+                <a href="studio.html" class="liquid-mobile-link active" data-nav-page="studio">Studio</a>
+                <a href="services.html" class="liquid-mobile-link" data-nav-page="services">Services</a>
+                <a href="contact.html" class="liquid-mobile-link" data-nav-page="contact">Contact</a>
+            </nav>
+            <div style="margin-top: 1rem; width: 100%;">
+                <a href="contact.html" class="liquid-cta-btn" style="width: 100%; justify-content: center;">Start a Project</a>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content">
+
+        <!-- ══════════════════════════════════════
+             HERO + MARQUEE ALONG SVG PATH
+        ══════════════════════════════════════ -->
+        <section class="studio-hero-dark">
+
+            <!-- Headline -->
+            <div class="studio-top-text">
+                <span class="section-badge">Creative Universe</span>
+                <h1>THE <em>ARC</em><br>OF POSSIBILITY</h1>
+            </div>
+
+            <!-- Marquee Path Component -->
+            <div class="marquee-path-section" aria-label="Scrolling creative work showcase">
+                <!-- Outer responsive wrapper -->
+                <div id="marquee-wrapper" role="img" aria-label="Images flowing along a curved path">
+                    <!-- Inner fixed container (scaled via JS) -->
+                    <div id="marquee-inner">
+                        <!-- SVG path (invisible reference) -->
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="996"
+                            height="330"
+                            viewBox="0 0 996 330"
+                            aria-hidden="true">
+                            <path
+                                id="studio-motion-path"
+                                d="M1 209.434C58.5872 255.935 387.926 325.938 482.583 209.434C600.905 63.8051 525.516 -43.2211 427.332 19.9613C329.149 83.1436 352.902 242.723 515.041 267.302C644.752 286.966 943.56 181.94 995 156.5"
+                                stroke="rgba(255,255,255,0.08)"
+                                fill="none"
+                                stroke-dasharray="6 8"
+                            />
+                        </svg>
+                        <!-- Items injected here by JS -->
+                    </div>
+                </div>
+
+                <p class="drag-hint">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/>
+                    </svg>
+                    Drag to explore · Hover to pause
+                </p>
+            </div>
+        </section>
+
+        <!-- ══════════════════════════════════════
+             STUDIO INFO STRIP
+        ══════════════════════════════════════ -->
+        <section class="studio-info-strip" aria-label="About Sundown Studio">
+            <div class="studio-info-inner">
+
+                <div class="studio-info-left">
+                    <h2>Design-driven creators who believe details make all the difference.</h2>
+                    <p>We are a multidisciplinary team of designers, producers, spatial architects, and motion specialists — turning ambitious ideas into bespoke physical and digital realities. Every project is a collaboration rooted in craft, curiosity, and precision.</p>
+
+                    <div class="studio-disciplines" role="list" aria-label="Our disciplines">
+                        <span class="discipline-tag" role="listitem">Spatial Design</span>
+                        <span class="discipline-tag" role="listitem">Brand Activation</span>
+                        <span class="discipline-tag" role="listitem">Motion Direction</span>
+                        <span class="discipline-tag" role="listitem">Fabrication</span>
+                        <span class="discipline-tag" role="listitem">Digital Experiences</span>
+                        <span class="discipline-tag" role="listitem">Art Direction</span>
+                        <span class="discipline-tag" role="listitem">Installation Design</span>
+                        <span class="discipline-tag" role="listitem">Content Production</span>
+                    </div>
+
+                    <div style="margin-top: 2.5rem;">
+                        <a href="contact.html" class="btn-accent" style="background-color: #FE320A; display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px; border-radius: 9999px; color: #fff; font-size: 1rem; font-weight: 500; text-decoration: none;">
+                            Start a Project
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="studio-info-right">
+                    <div class="studio-stat">
+                        <div class="num">07<span>+</span></div>
+                        <div class="label">Years in Practice</div>
+                    </div>
+                    <div class="studio-stat">
+                        <div class="num">120<span>+</span></div>
+                        <div class="label">Projects Delivered</div>
+                    </div>
+                    <div class="studio-stat">
+                        <div class="num">13</div>
+                        <div class="label">Global Studios</div>
+                    </div>
+                    <div class="studio-stat">
+                        <div class="num">4</div>
+                        <div class="label">Core Disciplines</div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Global Footer -->
+    <footer id="global-footer">
+        <div class="footer-ambient-glow" aria-hidden="true"></div>
+        <div class="footer-top">
+            <div class="footer-brand">
+                <h2>Ready to collaborate with Sundown?</h2>
+                <p>We are always eager to partner with forward-thinking teams to create groundbreaking spaces.</p>
+                <div style="margin-top: 2rem;">
+                    <a href="contact.html" class="btn-accent">
+                        <span>Start a Conversation</span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-nav-grid">
+                <div class="footer-nav-col">
+                    <h3>Navigation</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="work.html">Work</a></li>
+                        <li><a href="studio.html">Studio</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-nav-col">
+                    <h3>Capabilities</h3>
+                    <ul>
+                        <li><a href="services.html">Environments</a></li>
+                        <li><a href="services.html">Experiences</a></li>
+                        <li><a href="services.html">Content & Direction</a></li>
+                        <li><a href="services.html">Process</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-big-title"><h1>Sundown</h1></div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Sundown Studio. All rights reserved.</p>
+            <p>Designed &amp; Engineered with Precision.</p>
+        </div>
+    </footer>
+
+    <!-- Standard scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/navigation.js"></script>
+
+    <!-- ══════════════════════════════════════
+         MARQUEE ALONG SVG PATH — Vanilla JS
+         Ported from motion/react component
+    ══════════════════════════════════════ -->
+    <script>
+    (function () {
+        'use strict';
+
+        /* ── Configuration ────────────────────── */
+        const PATH = "M1 209.434C58.5872 255.935 387.926 325.938 482.583 209.434C600.905 63.8051 525.516 -43.2211 427.332 19.9613C329.149 83.1436 352.902 242.723 515.041 267.302C644.752 286.966 943.56 181.94 995 156.5";
+        const VIEWBOX_W = 996;
+        const VIEWBOX_H = 330;
+
+        const BASE_VELOCITY  = 9;     // % per second
+        const SLOWDOWN_FACTOR = 0.25; // speed multiplier when hovering
+        const DRAG_SENSITIVITY = 0.06;// pointer px → path %
+        const DRAG_DECAY      = 0.91; // inertia decay per frame
+        const REPEAT          = 2;    // how many times to repeat image set
+        const ITEM_SIZE_PX    = 72;   // size of each item (scaled by CSS)
+
+        /* ── Feature Images (Studio Marquee Only) ─ */
+        const IMAGES = [
+            { src: "assets/images/feature-iridescent-curves.jpg" },
+            { src: "assets/images/hero-orange-glasses.jpg" },
+            { src: "assets/images/project-cyber-coder.jpg" },
+            { src: "assets/images/project-perfect-heat.jpg" },
+            { src: "assets/images/project-solar-eclipse.jpg" },
+            { src: "assets/images/feature-helicopter.jpg" },
+            { src: "assets/images/feature-orb-system.jpg" },
+            { src: "assets/images/feature-cartier-watch.jpg" },
+            { src: "assets/images/feature-floating-tower.jpg" }
+        ];
+
+        /* ── Wrap utility (like motion's wrap) ── */
+        function wrap(min, max, value) {
+            const range = max - min;
+            return ((((value - min) % range) + range) % range) + min;
+        }
+
+        /* ── Build items array ────────────────── */
+        const totalItems = IMAGES.length * REPEAT;
+        const itemEls = [];
+
+        const inner = document.getElementById('marquee-inner');
+        if (!inner) return;
+
+        for (let i = 0; i < totalItems; i++) {
+            const imgIdx = i % IMAGES.length;
+
+            const div = document.createElement('div');
+            div.className = 'marquee-item';
+            div.style.cssText = [
+                'offset-rotate: 0deg',
+                'offset-anchor: 50% 50%',
+                `offset-path: path("${PATH}")`,
+                `offset-distance: ${(i * 100 / totalItems).toFixed(3)}%`,
+                `z-index: ${Math.floor(1 + (i / totalItems) * 10)}`,
+            ].join(';');
+
+            const img = document.createElement('img');
+            img.src = IMAGES[imgIdx].src;
+            img.alt = `Studio work ${imgIdx + 1}`;
+            img.loading = 'lazy';
+            img.draggable = false;
+
+            div.appendChild(img);
+            inner.appendChild(div);
+            itemEls.push(div);
+        }
+
+        /* ── State ────────────────────────────── */
+        let baseOffset  = 0;
+        let isHovered   = false;
+        let isDragging  = false;
+        let dragVelocity = 0;
+        let lastPtrX    = 0;
+        let lastTime    = performance.now();
+        let rafId       = null;
+
+        /* ── Responsive Scaling ───────────────── */
+        const wrapper = document.getElementById('marquee-wrapper');
+
+        function updateScale() {
+            if (!wrapper || !inner) return;
+            const ww = wrapper.clientWidth;
+            const wh = wrapper.clientHeight;
+            const scaleX = ww / VIEWBOX_W;
+            const scaleY = wh / VIEWBOX_H;
+            const scale  = Math.min(scaleX, scaleY);
+            const scaledW = VIEWBOX_W * scale;
+            const scaledH = VIEWBOX_H * scale;
+            const ox = (ww - scaledW) / 2;
+            const oy = (wh - scaledH) / 2;
+            inner.style.width  = VIEWBOX_W + 'px';
+            inner.style.height = VIEWBOX_H + 'px';
+            inner.style.transform = `translate(${ox}px,${oy}px) scale(${scale})`;
+            inner.style.transformOrigin = 'top left';
+        }
+
+        updateScale();
+        window.addEventListener('resize', updateScale, { passive: true });
+
+        /* ── Pointer / Drag Events ────────────── */
+        wrapper.addEventListener('pointerdown', (e) => {
+            isDragging = true;
+            lastPtrX   = e.clientX;
+            dragVelocity = 0;
+            wrapper.setPointerCapture(e.pointerId);
+            wrapper.style.cursor = 'grabbing';
+        });
+
+        wrapper.addEventListener('pointermove', (e) => {
+            if (!isDragging) return;
+            const dx = e.clientX - lastPtrX;
+            // Map pixel delta to path % delta (account for scale)
+            const scaleX = wrapper.clientWidth / VIEWBOX_W;
+            dragVelocity = dx * DRAG_SENSITIVITY / Math.max(scaleX, 0.1);
+            lastPtrX = e.clientX;
+        });
+
+        wrapper.addEventListener('pointerup', (e) => {
+            isDragging = false;
+            wrapper.releasePointerCapture(e.pointerId);
+            wrapper.style.cursor = 'grab';
+        });
+
+        wrapper.addEventListener('pointercancel', () => {
+            isDragging = false;
+            wrapper.style.cursor = 'grab';
+        });
+
+        /* ── Hover events ─────────────────────── */
+        wrapper.addEventListener('mouseenter', () => { isHovered = true; });
+        wrapper.addEventListener('mouseleave', () => { isHovered = false; });
+
+        /* ── Animation Loop ───────────────────── */
+        function animate(timestamp) {
+            const delta = Math.min((timestamp - lastTime) / 1000, 0.05);
+            lastTime = timestamp;
+
+            if (isDragging) {
+                // While dragging: only drag velocity moves the path
+                baseOffset += dragVelocity;
+            } else {
+                // Decay inertia after drag release
+                if (Math.abs(dragVelocity) > 0.001) {
+                    baseOffset  += dragVelocity;
+                    dragVelocity *= DRAG_DECAY;
+                } else {
+                    dragVelocity = 0;
+                }
+
+                // Auto-scroll
+                const speed = isHovered
+                    ? BASE_VELOCITY * SLOWDOWN_FACTOR
+                    : BASE_VELOCITY;
+                baseOffset += speed * delta;
+            }
+
+            // Update each item's offset-distance along the path
+            for (let i = 0; i < itemEls.length; i++) {
+                const position = (i * 100) / totalItems;
+                const offset   = wrap(0, 100, baseOffset + position);
+                itemEls[i].style.offsetDistance = offset.toFixed(3) + '%';
+
+                // Rolling z-index based on position (front/back feel)
+                itemEls[i].style.zIndex = Math.floor(1 + offset / 10);
+            }
+
+            rafId = requestAnimationFrame(animate);
+        }
+
+        lastTime = performance.now();
+        rafId = requestAnimationFrame(animate);
+
+        // Pause animation when tab is hidden (performance)
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                cancelAnimationFrame(rafId);
+            } else {
+                lastTime = performance.now();
+                rafId = requestAnimationFrame(animate);
+            }
+        });
+
+    })();
+    </script>
+</body>
+</html>
