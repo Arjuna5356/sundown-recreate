@@ -468,6 +468,37 @@ body:not([data-theme="dark"]) .liquid-nav-item:hover {
     font-weight: 600;
 }
 
+.liquid-nav-item.liquid-auth-link {
+    gap: 0.45rem;
+    padding: 8px 16px;
+    color: #17120f !important;
+    background: #eeeae5;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+.liquid-nav-item.liquid-auth-link:hover {
+    color: #17120f !important;
+    background: #fff;
+}
+
+.liquid-nav-item.liquid-auth-link.active {
+    color: #17120f !important;
+    background: #eeeae5;
+}
+
+.liquid-auth-google-mark {
+    width: 17px;
+    height: 17px;
+    flex: 0 0 auto;
+}
+
+.liquid-mobile-link.liquid-auth-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
 body.theme-light .liquid-nav-item.active,
 body:not([data-theme="dark"]) .liquid-nav-item.active {
     color: #000000 !important;

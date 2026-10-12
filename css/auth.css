@@ -1,0 +1,179 @@
+.auth-page {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 8rem 1.5rem 4rem;
+    background:
+        radial-gradient(ellipse at 50% 35%, rgba(254, 50, 10, 0.13), transparent 55%),
+        #0b0500;
+    color: #f7f5f0;
+}
+
+.auth-card {
+    width: min(100%, 460px);
+    padding: clamp(2rem, 6vw, 3.25rem);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 1.5rem;
+    background: rgba(255, 255, 255, 0.055);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.auth-card .section-badge {
+    display: inline-flex;
+    margin-bottom: 1.25rem;
+    color: #fe5a32;
+}
+
+.auth-card h1 {
+    margin: 0 0 0.85rem;
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    font-weight: 500;
+    letter-spacing: -0.055em;
+    line-height: 0.98;
+}
+
+.auth-card > p {
+    margin: 0 auto 1.75rem;
+    max-width: 340px;
+    color: rgba(247, 245, 240, 0.64);
+    line-height: 1.6;
+}
+
+.google-sign-in-button,
+.auth-sign-out-button {
+    min-height: 50px;
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 999px;
+    background: #f7f5f0;
+    color: #17120f;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.google-sign-in-button:hover,
+.auth-sign-out-button:hover {
+    background: #fff;
+}
+
+.google-sign-in-button:disabled,
+.auth-sign-out-button:disabled {
+    cursor: wait;
+    opacity: 0.65;
+}
+
+.google-mark {
+    width: 20px;
+    height: 20px;
+}
+
+.auth-message {
+    margin: 1.25rem 0 0;
+    color: rgba(247, 245, 240, 0.72);
+    font-size: 0.9rem;
+    line-height: 1.55;
+}
+
+.auth-message.is-error {
+    color: #ff9078;
+}
+
+.auth-account {
+    display: grid;
+    justify-items: center;
+    gap: 0.6rem;
+}
+
+.auth-account h2 {
+    margin: 0.5rem 0 0;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.auth-account p {
+    margin: 0 0 1rem;
+    color: rgba(247, 245, 240, 0.64);
+}
+
+.auth-user-photo {
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.auth-dialog-backdrop[hidden],
+.auth-dialog-photo[hidden] {
+    display: none !important;
+}
+
+.auth-dialog-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: grid;
+    place-items: center;
+    padding: 1.25rem;
+    background: rgba(7, 4, 2, 0.76);
+    backdrop-filter: blur(12px);
+}
+
+.auth-dialog {
+    position: relative;
+    width: min(100%, 420px);
+    display: grid;
+    justify-items: center;
+    gap: 0.7rem;
+    padding: 2.5rem clamp(1.5rem, 6vw, 2.5rem);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 1.5rem;
+    background: #18110c;
+    color: #f7f5f0;
+    box-shadow: 0 28px 100px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.auth-dialog-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.85rem;
+    width: 40px;
+    height: 40px;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: #f7f5f0;
+    font-size: 1.6rem;
+    cursor: pointer;
+}
+
+.auth-dialog-photo {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.auth-dialog h2 {
+    margin: 0.2rem 0 0;
+    font-size: 1.7rem;
+    font-weight: 500;
+}
+
+.auth-dialog-name,
+.auth-dialog-email,
+.auth-dialog-status {
+    margin: 0;
+    overflow-wrap: anywhere;
+    color: rgba(247, 245, 240, 0.72);
+}
+
+.auth-dialog .auth-sign-out-button {
+    margin-top: 0.7rem;
+}
